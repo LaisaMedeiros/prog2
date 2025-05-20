@@ -1,0 +1,9 @@
+saida1.dat
+5
+Mario 20
+Ana 19
+Denis 50
+Julia 43
+Luis 32
+3
+45

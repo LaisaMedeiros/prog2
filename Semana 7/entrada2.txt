@@ -1,0 +1,5 @@
+saida2.bin
+1
+Leandro 25
+1
+11

@@ -1,0 +1,6 @@
+saida4
+2
+Daniel 32
+Roberto 40
+3
+20
