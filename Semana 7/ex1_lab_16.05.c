@@ -10,8 +10,6 @@ int grava(FILE *pFile, int N){
 		}
 		count++;
 	}
-	
-	rewind(pFile);
 	return count;	
 }
 
