@@ -1,62 +1,47 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <ctype.h>
 
 #define MAX 100
 #define COL 100
 
-int main(){
-	char nome_arquivo[MAX];
-	FILE *parq;
-	
-	printf("Insira o nome do arquivo:");
-	scanf("%s", nome_arquivo);
-	
-	parq = fopen(nome_arquivo, "r");
-	if (parq == NULL){
-		printf("Erro na abertura do arquivo");
-		return -1;
-	}
-	
-	int L;
-	printf("Quantas linhas o arquivo tem?");
-	scanf("%d", &L);
-	
-	char **linhas;
-	linhas = (char **)malloc(L*sizeof(char *));
-	for (int i = 0; i < L; i++){
-		linhas[i] = (char*)malloc(COL*sizeof(char));
-	}
-	//Le até o \n
-	for (int i = 0; i<L; i++){
-		fgets(linhas[i], COL, parq);
-	}
-	fclose(parq);
-	
-	//Contar vogais
-	int letra_A = 0, letra_E = 0, letra_I = 0, letra_O = 0, letra_U = 0;
-	for (int i = 0; i < L; i++){
-		for (int j = 0; linhas[i][j] != '\0'; j++){
-			if (tolower(*(linhas[i]+j))== 'a'){
-				letra_A += 1;
-			}
-			if (tolower(*(linhas[i]+j))== 'e'){
-				letra_E += 1;
-			}
-			if (tolower(*(linhas[i]+j))== 'i'){
-				letra_I += 1;
-			}
-			if (tolower(*(linhas[i]+j))== 'o'){
-				letra_O += 1;
-			}
-			if (tolower(*(linhas[i]+j))== 'u'){
-				letra_U += 1;
-			}
-		}
-	}
-	
-	printf("%d\n%d\n%d\n%d\n%d", letra_A, letra_E, letra_I, letra_O, letra_U);
-	
-	return 0;
-	
+int main() {
+    char nome_arquivo[MAX];
+    FILE *parq;
+    
+    printf("Insira o nome do arquivo:");
+    scanf("%s", nome_arquivo);
+    
+    parq = fopen(nome_arquivo, "r");
+    if (parq == NULL) {
+        printf("Erro na abertura do arquivo");
+        return -1;
+    }
+    
+    char linha[COL];
+    int letra_A = 0, letra_E = 0, letra_I = 0, letra_O = 0, letra_U = 0;
+    
+    // Usando fscanf para ler até encontrar \n ou EOF
+    while (fscanf(parq, "%[^\n]", linha) != EOF) {
+        // Consome o caractere \n do buffer
+        fgetc(parq);
+        
+        for (int j = 0; linha[j] != '\0'; j++) {
+            char c = tolower(linha[j]);
+            if (c == 'a') letra_A++;
+            if (c == 'e') letra_E++;
+            if (c == 'i') letra_I++;
+            if (c == 'o') letra_O++;
+            if (c == 'u') letra_U++;
+        }
+    }
+    
+    fclose(parq);
+    
+    printf("a %d\n", letra_A);
+    printf("e %d\n", letra_E);
+    printf("i %d\n", letra_I);
+    printf("o %d\n", letra_O);
+    printf("u %d\n", letra_U);
+    
+    return 0;
 }

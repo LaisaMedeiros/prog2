@@ -3,42 +3,43 @@
 
 #define MAX 100
 
-typedef struct{
-	char nome[50];
-	float P1;
-	float P2;
-	float T;
-}Notas;
+typedef struct {
+    char nome[50];
+    float P1;
+    float P2;
+    float T;
+} Notas;
 
-int main(){
-	
-	FILE *parq;
-	char nome_arquivo[MAX];
-	scanf("%s", nome_arquivo);
-	
-	int N;
-	printf("Quantos alunos sao?");
-	scanf("%d", &N);
-	
-	//Aluno é um ponteiro para uma struct do tipo Notas, não um vetor de ponteiros
-	Notas *Aluno;
-	Aluno = (Notas *)malloc(N*sizeof(Notas));
-	for (int i = 0; i < N; i++){
-		scanf("%s", (Aluno + i)->nome);
-		scanf("%f", &((Aluno + i)->P1));
-		scanf("%f", &((Aluno + i)->P2));
-		scanf("%f", &((Aluno + i)->T));
-	}
-	
-	//abre o arquivo texto
-	parq = fopen(nome_arquivo, "w");
-	if (parq == NULL){
-		printf("Erro ao abrir o arquivo.");
-	}
-	for(int i = 0; i < N; i++){
-		fprintf(parq, "%s %.2f %.2f %.2f\n", (Aluno + i)->nome, (Aluno + i)->P1, (Aluno + i)->P2, (Aluno + i)->T);
-	}
-	fclose(parq);
-	
-	return 0;
+int main() {
+    FILE *parq;
+    char nome_arquivo[MAX];
+    scanf("%s", nome_arquivo);
+    
+    int N;
+    printf("Quantos alunos sao? ");
+    scanf("%d", &N);
+    
+    Notas aluno;  // Agora é uma única variável, não um vetor
+    
+    // Abre o arquivo texto para escrita
+    parq = fopen(nome_arquivo, "w");
+    if (parq == NULL) {
+        printf("Erro ao abrir o arquivo.");
+        return 1;
+    }
+    
+    for (int i = 0; i < N; i++) {
+        // Lê os dados do aluno
+        scanf("%s", aluno.nome);
+        scanf("%f", &aluno.P1);
+        scanf("%f", &aluno.P2);
+        scanf("%f", &aluno.T);
+        
+        // Escreve imediatamente no arquivo
+        fprintf(parq, "%s %.2f %.2f %.2f\n", aluno.nome, aluno.P1, aluno.P2, aluno.T);
+    }
+    
+    fclose(parq);
+    
+    return 0;
 }

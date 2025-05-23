@@ -1,45 +1,44 @@
 #include <stdio.h>
 #include <string.h>
 
-#define MAX 100
-#define COL 80
+#define MAX 81
 
-int main(){
+int main(int argc, char *argv[]){
 	
 	FILE *parq;
 	
-	char nome_arquivo[MAX];
-	printf("Insira o nome do arquivo:");
-	scanf("%s", nome_arquivo);
+	// Verifica se os argumentos foram passados corretamente
+	if (argc != 3) {
+        printf("Uso: %s \"padrao\" arquivo.txt\n", argv[0]);
+        return -1;
+    }
 	
-	char padrao[MAX];
-	printf("Insira o padrao à procurar:");
-	scanf("%s", padrao);
+	char *padrao = argv[1];
+    char *nome_arquivo = argv[2];
 	
 	parq = fopen(nome_arquivo, "r");
 	if(parq == NULL){
 		printf("Erro na abertura do arquivo");
 		return -1;
 	}
-	
-	//pede o numero de linhas ao usuario
-	int L;
-	printf("Insira a quantidade de linhas do arquivo:");
-	scanf("%d", &L);
+    
+ 	char linha[100];       // Vetor para armazenar cada linha lida do arquivo
+	int count = 0;
+    // Lê o arquivo linha por linha usando fgets
+    while (fscanf(parq, "%[^\n]", linha) == 1) {
 		
-	int **linhas;
-	linhas = (char **)malloc(L*sizeof(char *));
-	for (int i = 0; i < L; i++){
-		linhas[i] = (char *)malloc(COL*sizeof(char));
-		fgets(linhas[i], COL, parq);
-	}
-	
-	for (int i = 0; i < L; i ++){
-		char *resultado = strstr(linhas[i], padrao);
-		if (resultado != NULL){
-			printf("%d %s", i, linhas[i]);
-		}	
-	}
-	
+		count ++;
+        // Remove o caractere '\n' do final da linha, se existir
+       fgetc(parq);
+
+        // Converte a linha inteira para minúsculo
+        for (int i = 0; linha[i]; i++) {
+            linha[i] = tolower((unsigned char)linha[i]);
+        }
+
+       	if (strstr(linha, padrao) != NULL){
+       		printf("%d %s", count, linha);
+		}	      
+    }
 	return 0;
 }
