@@ -96,15 +96,15 @@ void reinicializarLista(LISTA* l) {
 	l->inicio = NULL;
 }
 
-//precisa de um ponteiro pos para percorre a lista1, pois como os elementos não são sequencias
-// a ideia é encontrar o ultimo elemento da lists 1 para ligar o próximo dele ao inicio da lista 2
+//precisa de um ponteiro pos para percorre a lista1, pois como os elementos nÃ£o sÃ£o sequencias
+// a ideia Ã© encontrar o ultimo elemento da lists 1 para ligar o prÃ³ximo dele ao inicio da lista 2
 
 void concatenaListas(LISTA* L1, LISTA* L2){
 	if (L1->inicio == NULL){
 		L1->inicio = L2->inicio;
 	}
 	else {
-		// faz com que o endereço de pos seja o proprrio l1
+		// faz com que o endereÃ§o de pos seja o proprrio l1
 		ELEMENTO *pos = L1->inicio;
 		while (pos->prox != NULL){
 			pos = pos->prox;
@@ -126,8 +126,6 @@ bool iguaisListas(LISTA* L1, LISTA *L2){
 	
 	ELEMENTO* ini1 = L1->inicio;
 	ELEMENTO* ini2 = L2->inicio;
-	
-	REGISTRO reg1, reg2;
 
 	while (ini1 != 0 && ini2 !=0){
 		if (ini1->reg.chave != ini2->reg.chave){
@@ -141,7 +139,7 @@ bool iguaisListas(LISTA* L1, LISTA *L2){
 
 bool modificaElem(LISTA* L, REGISTRO reg, int pos){
 	
-	//verifica se a lista é vazia
+	//verifica se a lista Ã© vazia
 	if (L->inicio == NULL){
 		return false;
 	}
