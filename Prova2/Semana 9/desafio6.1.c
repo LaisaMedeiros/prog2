@@ -27,7 +27,7 @@ typedef struct {
     PONT topo;
 } PILHA;
 
-// InicializaÁıes b·sicas
+// Inicializa√ß√µes b√°sicas
 void inicializarPilha(PILHA* p) {
     p->topo = NULL;
 }
@@ -55,10 +55,10 @@ bool excluirElemPilha(PILHA* p, REGISTRO* reg) {
 }
 
 void exibeCarta(int num, char naipe) {
-    // Switch para o n˙mero da carta
+    // Switch para o n√∫mero da carta
     switch (num) {
         case 1:
-            printf("¿s de ");
+            printf("√Äs de ");
             break;
         case 11:
             printf("Valete de ");
@@ -70,7 +70,7 @@ void exibeCarta(int num, char naipe) {
             printf("Rei de ");
             break;
         default:
-            printf("%d de ", num); // Para n˙meros de 2 a 10
+            printf("%d de ", num); // Para n√∫meros de 2 a 10
             break;
     }
 
@@ -94,12 +94,32 @@ void exibeCarta(int num, char naipe) {
     }
     printf("\n");
 }
-//testar com outra coisa
+
+/* BUSCA A CARTA SEM DESEMPILHAR
+int buscaCarta(PILHA* p){
+    int num;
+    char naipe;
+    scanf("%d %c", &num, &naipe);
+    PONT end = p->topo;
+    int count = 0;
+    while (end != NULL){
+        if (end->reg.carta.numero == num && end->reg.carta.naipe == naipe){
+            exibeCarta(num, naipe);
+            return count;
+        }
+        end = end->prox;
+        count++;
+    }
+    return -1; // carta n√£o foi encontrada
+}
+
+*/
+//DESEMPILHANDO
 int buscaCarta(PILHA* p){
 	int num;
 	int naipe;
 	scanf("%d %c", &num, &naipe);
-	REGISTRO reg;
+	REGISTRO reg; //para salvar o elemento removido 
 	int count = 0;
 	while(!estaVazia(p)){
 		excluirElemPilha(p, &reg);
@@ -109,7 +129,7 @@ int buscaCarta(PILHA* p){
 		}
 		count++;
 	}
-	return -1; //a carta naı foi encontrada	
+	return -1; //a carta na√µ foi encontrada	
 }
 
 void empilhaBaralho(PILHA* p){
@@ -130,7 +150,7 @@ int main(){
 	empilhaBaralho(&p);
 	int descart = buscaCarta(&p);
 	if (descart == -1){
-		printf("carta naı encontrada");
+		printf("carta na√µ encontrada");
 	}
 	else{
 		printf("%d", descart);
