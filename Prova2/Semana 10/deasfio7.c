@@ -42,8 +42,9 @@ void exibirFila(FILA* f) {
     ELEMENTO* end = f->inicio;
     printf("Fila: \" ");
     while (end != NULL) {
-    printf("%i ", end->reg.cliente);
-    end = end->prox; }
+	    printf("%i ", end->reg.cliente);
+	    end = end->prox; 
+    }
     printf("\"\n"); 
 }
 
@@ -83,7 +84,7 @@ int main() {
     inicializarFila(&f);
     int K, C;
     scanf("%d", &K);  // Tempo por produto (K)
-    scanf("%d", &C);  // Número de clientes
+    scanf("%d", &C);  // NÃºmero de clientes
     
     for (int i = 0; i < C; i++) {
         CLIENTE cliente;
@@ -99,7 +100,7 @@ int main() {
     while (excluirDaFila(&f, &reg)) {
         CLIENTE c = reg.cliente;
         
-        // O cliente começa a ser atendido quando chega OU quando o caixa fica livre
+        // O cliente comeÃ§a a ser atendido quando chega OU quando o caixa fica livre
         int inicio_atendimento = (c.t_chegada_cliente > tempo_atual) ? c.t_chegada_cliente : tempo_atual;
         
         // Calcula o tempo de atendimento: 10 segundos fixos + produtos*K
