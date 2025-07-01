@@ -9,25 +9,28 @@ int buscaBin(int arr[], int tam, int el) {
         int meio = (fim + ini) / 2;
         
         if (arr[meio] < el) {
-            // Descartamos da posiÁ„o ini atÈ meio (inclusive)
-            printf("%da. iteracao: %d\n", iteracao, meio - ini);
+            // Descartamos da posi√ß√£o ini at√© meio (inclusive)
+            printf("%da. iteracao: %d\n", iteracao, meio - ini+1);
             ini = meio + 1;
         }
         else if (arr[meio] > el) {
-            // Descartamos da posiÁ„o meio atÈ fim (inclusive)
-            printf("%da. iteracao: %d\n", iteracao, fim - meio);
+            // Descartamos da posi√ß√£o meio at√© fim (inclusive)
+            printf("%da. iteracao: %d\n", iteracao, fim - meio+1);
             fim = meio - 1;
         }
-        else if (arr[meio] == el){
-        	printf("%da. iteracao: %d\n", iteracao, fim - meio);
-        	fim = meio;
+        else if (arr[meio] == el && iteracao == 1){
+        	printf("%da. iteracao:%d\n", iteracao, 0);
+            return 0;  // Elemento encontrado
+        }
+        else if (arr[meio] == el && iteracao > 1){
+        	printf("%da. iteracao:%d\n", iteracao, fim-ini);
             return 0;  // Elemento encontrado
         }
         
         iteracao++;
     }
     
-    return -1;  // Elemento n„o encontrado
+    return -1;  // Elemento n√£o encontrado
 }
 
 int main(){
